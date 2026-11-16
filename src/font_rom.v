@@ -1,4 +1,3 @@
-// 8x8 characters for the ON / OFF text. Bit 7 is the leftmost pixel.
 // Codes: 0 = O, 1 = N, 2 = F, 3 = space
 
 module font_rom (char, row, bits);

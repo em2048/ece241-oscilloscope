@@ -16,10 +16,22 @@ module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC
 	input wire ADC_DOUT; // MISO
 	output wire ADC_DIN; // MOSI
 	
+	// VGA lines
+	output [7:0] VGA_R, VGA_G, VGA_B;
+	output VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK;
+	
 	wire reset; 
+	wire on; // high when the input is above the threshold
+	
 	
 	reg [11:0] thresh;
 	wire [11:0] ch0, ch1, ch2, ch3, ch4, ch5, ch6, ch7; // for now ch1-7 are not used
+
+	// pixel writes from text_draw to the VGA adapter
+	wire [7:0] vga_x;
+	wire [6:0] vga_y;
+	wire [2:0] vga_color;
+	wire vga_write;
 	
 	assign reset = ~KEY[0]; // active high reset for the ADC
 	
@@ -48,7 +60,32 @@ module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC
 	hex_decoder u2 (ch0[7:4], HEX1);
 	hex_decoder u3 (ch0[11:8], HEX2);
 	
-	assign LEDR = (ch0 > thresh); // turn on if the input voltage is larger than a threshold
+	assign on = (ch0 > thresh); // input voltage is larger than the threshold
+	assign LEDR = on;
+
+	// ON or OFF in the middle of the screen
+	text_draw t1 (CLOCK_50, KEY[0], on, vga_x, vga_y, vga_color, vga_write);
+	
+	vga_adapter VGA (
+		.resetn(KEY[0]),
+		.clock(CLOCK_50),
+		.color(vga_color),
+		.x(vga_x),
+		.y(vga_y),
+		.write(vga_write),
+		.VGA_R(VGA_R),
+		.VGA_G(VGA_G),
+		.VGA_B(VGA_B),
+		.VGA_HS(VGA_HS),
+		.VGA_VS(VGA_VS),
+		.VGA_BLANK_N(VGA_BLANK_N),
+		.VGA_SYNC_N(VGA_SYNC_N),
+		.VGA_CLK(VGA_CLK));
+		defparam VGA.RESOLUTION = "160x120";
+		defparam VGA.COLOR_DEPTH = 3;
+		defparam VGA.BACKGROUND_IMAGE = "mif/black_160_3.mif";
+	
+	
 	
 endmodule
 

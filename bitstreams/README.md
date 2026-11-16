@@ -1,1 +1,1 @@
-Known-good .sof files, one per working milestone.
+.sof files known to work

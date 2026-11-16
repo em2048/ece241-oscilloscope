@@ -1,0 +1,1 @@
+Generated IP cores (thank you Intel) -> Add only the .qip file to Quartus, DO NOT EDIT
