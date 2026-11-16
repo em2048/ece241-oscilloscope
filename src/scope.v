@@ -1,6 +1,6 @@
 // Milestone 1: reading input from the ADC module
 
-module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC_DOUT, ADC_DIN);
+module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC_DOUT, ADC_DIN,VGA_R, VGA_G, VGA_B,VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
 	
 	input CLOCK_50;
 	input [1:0] KEY;
