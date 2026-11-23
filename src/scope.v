@@ -110,17 +110,21 @@ module dc_graph (clock, resetn, enable, sample, x, y, color, write);
 	wire [10:0] scaled = sample[11:5] * 4'd15;		// 120 = 128 *15/2^4 (same as shift btw)
 	wire [6:0] new_y = 7'd119 - (scaled >> 4);      // Flip so larger voltage is higher on the screen
  
-	// trace: this column's sample and the one to its left, joined by a vertical segment ----
+ 
+	// Is it a trace pixel?
+	
+	// trace this column's sample and the one to its left, joined by a vertical segment (to account for sudden jumps)
 	wire [7:0] i = gx - MARGIN;                     // history index of this column
 	wire [6:0] cur_y = hist[i];
-	wire [6:0] p_y = (i == 8'd0) ? cur_y : hist[i - 8'd1];
+	wire [6:0] p_y = (i == 8'd0) ? cur_y : hist[i - 8'd1]; // check if its the left most col
 	wire [6:0] lo = (p_y < cur_y) ? p_y : cur_y;
 	wire [6:0] hi = (p_y < cur_y) ? cur_y : p_y;
-	wire in_span = (gx >= MARGIN) && (gy >= lo) && (gy <= hi); // within the bounds of the screen
+	wire in_span = (gx >= MARGIN) && (gy >= lo) && (gy <= hi); // Connect the two points
  
  
  
-	// Is gy in a position that contains a gridline?
+	// Is it a grideline pixel?
+	
 	wire is_grid = (gy == 7'd90) || (gy == 7'd61) || (gy == 7'd32) || (gy == 7'd2);
  
 	// voltage labels 1V 2V 3V 4V in the left margin (3x5 height)
@@ -128,7 +132,8 @@ module dc_graph (clock, resetn, enable, sample, x, y, color, write);
 	reg [2:0] label_digit;
 	reg [2:0] label_row; // relative to the labels (mini 5x3 box)
  
-	// is gx and gy in a region that contains a label?
+	// is gx and gy a label pixel? If so which one?
+	
 	always @ (*) begin
 		label_here = 1'b1;
 		label_digit = 3'd0;
