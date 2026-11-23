@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 	component ADC is
+=======
+	component ADC is
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2
 		port (
 			CLOCK    : in  std_logic                     := 'X'; -- clk
 			RESET    : in  std_logic                     := 'X'; -- reset
@@ -15,9 +19,15 @@
 			ADC_DOUT : in  std_logic                     := 'X'; -- DOUT
 			ADC_DIN  : out std_logic                             -- DIN
 		);
+<<<<<<< HEAD
 	end component ADC;
 
 	u0 : component ADC
+=======
+	end component ADC;
+
+	u0 : component ADC
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2
 		port map (
 			CLOCK    => CONNECTED_TO_CLOCK,    --                clk.clk
 			RESET    => CONNECTED_TO_RESET,    --              reset.reset
@@ -34,4 +44,8 @@
 			ADC_DOUT => CONNECTED_TO_ADC_DOUT, --                   .DOUT
 			ADC_DIN  => CONNECTED_TO_ADC_DIN   --                   .DIN
 		);
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2

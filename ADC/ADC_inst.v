@@ -13,5 +13,10 @@
 		.ADC_CS_N (<connected-to-ADC_CS_N>), //                   .CS_N
 		.ADC_DOUT (<connected-to-ADC_DOUT>), //                   .DOUT
 		.ADC_DIN  (<connected-to-ADC_DIN>)   //                   .DIN
+<<<<<<< HEAD
 	);
 
+=======
+	);
+
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2

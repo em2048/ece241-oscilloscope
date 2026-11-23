@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 	component ADC is
+=======
+	component ADC is
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2
 		port (
 			CLOCK    : in  std_logic                     := 'X'; -- clk
 			ADC_SCLK : out std_logic;                            -- SCLK
@@ -15,5 +19,10 @@
 			CH7      : out std_logic_vector(11 downto 0);        -- CH7
 			RESET    : in  std_logic                     := 'X'  -- reset
 		);
+<<<<<<< HEAD
 	end component ADC;
 
+=======
+	end component ADC;
+
+>>>>>>> 14c9a331b9d47a5cab79046af6a4f57769a84eb2
