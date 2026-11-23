@@ -1,4 +1,3 @@
-
 // Milestone 2: reading input from the ADC module + DC measuring mode (scrolling graph)
  
 module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC_DOUT, ADC_DIN,VGA_R, VGA_G, VGA_B,VGA_HS, VGA_VS, VGA_BLANK_N, VGA_SYNC_N, VGA_CLK);
@@ -71,18 +70,8 @@ module scope (CLOCK_50, KEY, LEDR, SW, HEX0, HEX1, HEX2, ADC_SCLK, ADC_CS_N, ADC
 		defparam VGA.BACKGROUND_IMAGE = "mif/black_160_3.mif";
 	
 endmodule
- 
-// DC graph: a true scrolling strip chart.
-//
-// The module keeps a history of the last 150 samples (one per graph column).
-// Every SHIFT_TICKS clock cycles a new sample is pushed in on the right and
-// everything else moves one column to the left, so the waveform scrolls.
-// The VGA adapter is write-only (we can't read it back to shift the picture),
-// so instead the whole screen is redrawn from the history over and over.
-// One full redraw is 160 x 120 = 19200 pixel writes = ~0.4 ms at 50 MHz.
-//
-// 0 V is the bottom row (y = 119), full scale (4095) is the top row (y = 0).
-// Blue gridlines mark 1/2/3/4 V and white labels sit in the 10-column left margin.
+
+// DC scrolling strip chart on 160 x 120 at 0.4 ms at 50MHz
  
 module dc_graph (clock, resetn, enable, sample, x, y, color, write);
  
