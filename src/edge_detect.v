@@ -4,7 +4,7 @@
 
 module edge_detect (clk, resetn, tick, ch0, level, crossing);
 
-	parameter H = 13'd16; //hysteresis
+	parameter H = 13'd1; //hysteresis
 
 	input clk, resetn, tick;
 	input [11:0] ch0, level;
