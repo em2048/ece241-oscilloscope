@@ -1,5 +1,5 @@
 // Counts trigger crossings over a 1 s gate, so freq is in Hz. Holds its value while frozen.
-
+//PROBLEM CURRENT: due to the trigger threshold being able to be manually altered, trigger can go twice in one wave, so frequency counts an extra time
 module freq_counter (clk, resetn, crossing, freeze, freq);
 
 	input clk, resetn, crossing, freeze;
